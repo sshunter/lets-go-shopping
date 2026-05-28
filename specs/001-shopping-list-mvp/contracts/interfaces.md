@@ -26,10 +26,13 @@ The `shared_core` package exposes the `ShoppingListBloc` which manages the list 
 To enable interactive lockscreen updates without biometric unlocks, the main app and widget extensions communicate via a shared key-value and file pool.
 
 ### Shared Storage Schema (Platform-Specific)
-- **App Group Identifier (iOS)**: `group.com.letsgo.shopping.list`
+- **Shared Storage Filename**: `shopping_list_shared`
+- **Keys**:
+- **App Group Identifier (iOS)**: `group.com.bluecollarcode.shopping.list`
 - **Shared Storage Filename**: `shopping_list_shared`
 - **Keys**:
   - `shopping_items_json`: String. Contains the full serialized list of items.
+
     ```json
     [
       {"id":"uuid-1","name":"Apples","isCompleted":false,"createdAt":1780000}

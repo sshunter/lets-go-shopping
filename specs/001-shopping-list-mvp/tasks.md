@@ -20,7 +20,7 @@
 - **android_app**: `android_app/lib/`, native at `android_app/android/app/src/main/`
 - **ios_app**: `ios_app/lib/`, native extension at `ios_app/ios/ShoppingWidget/`
 
-> **Android package namespace**: `com.letsgo.shopping` (used in all Kotlin paths below)
+> **Android package namespace**: `com.bluecollarcode.shopping` (used in all Kotlin paths below)
 
 ---
 
@@ -160,13 +160,13 @@
 ### Implementation: android_app (Jetpack Glance Widget)
 
 - [ ] T046 [US3] Configure `android_app/android/app/src/main/AndroidManifest.xml` — register `AppWidgetProvider` receiver and declare widget metadata; configure `home_widget`'s App Group identifier
-- [ ] T047 [US3] Implement Jetpack Glance widget layout in `android_app/android/app/src/main/kotlin/com/letsgo/shopping/ShoppingListWidget.kt` — reads `shopping_items_json` from `SharedPreferences`, deserializes JSON, renders a scrollable list of items with checkbox toggles; shows empty-state message "Your shopping list is empty!" when list is empty or key is absent; no add or delete controls present
-- [ ] T048 [US3] Implement `AppWidgetProvider` background toggle handler in `android_app/android/app/src/main/kotlin/com/letsgo/shopping/ShoppingListWidgetReceiver.kt` — on checkbox tap: (1) updates `isCompleted` in the `shopping_items_json` SharedPreferences key, (2) triggers `home_widget` background Dart callback to write the change to SQLite, (3) calls `AppWidgetManager.notifyAppWidgetViewDataChanged()` to refresh the widget display
+- [ ] T047 [US3] Implement Jetpack Glance widget layout in `android_app/android/app/src/main/kotlin/com/bluecollarcode/shopping/ShoppingListWidget.kt` — reads `shopping_items_json` from `SharedPreferences`, deserializes JSON, renders a scrollable list of items with checkbox toggles; shows empty-state message "Your shopping list is empty!" when list is empty or key is absent; no add or delete controls present
+- [ ] T048 [US3] Implement `AppWidgetProvider` background toggle handler in `android_app/android/app/src/main/kotlin/com/bluecollarcode/shopping/ShoppingListWidgetReceiver.kt` — on checkbox tap: (1) updates `isCompleted` in the `shopping_items_json` SharedPreferences key, (2) triggers `home_widget` background Dart callback to write the change to SQLite, (3) calls `AppWidgetManager.notifyAppWidgetViewDataChanged()` to refresh the widget display
 
 ### Implementation: ios_app (WidgetKit Lock Screen Extension)
 
-- [ ] T049 [P] [US3] Configure iOS App Group container identifier (`group.com.letsgo.shopping.list`) in `ios_app/ios/Runner.xcodeproj` — add WidgetKit extension target `ShoppingWidget`; ensure App Group entitlement is added to both the Runner and the extension
-- [ ] T050 [P] [US3] Implement WidgetKit lock screen extension entry in `ios_app/ios/ShoppingWidget/ShoppingWidget.swift` — reads `shopping_items_json` from `UserDefaults(suiteName: "group.com.letsgo.shopping.list")`; deserializes JSON; renders items list using SwiftUI `List`; shows empty-state text when list is empty or key absent; no add or delete controls present
+- [ ] T049 [P] [US3] Configure iOS App Group container identifier (`group.com.bluecollarcode.shopping.list`) in `ios_app/ios/Runner.xcodeproj` — add WidgetKit extension target `ShoppingWidget`; ensure App Group entitlement is added to both the Runner and the extension
+- [ ] T050 [P] [US3] Implement WidgetKit lock screen extension entry in `ios_app/ios/ShoppingWidget/ShoppingWidget.swift` — reads `shopping_items_json` from `UserDefaults(suiteName: "group.com.bluecollarcode.shopping.list")`; deserializes JSON; renders items list using SwiftUI `List`; shows empty-state text when list is empty or key absent; no add or delete controls present
 - [ ] T051 [P] [US3] Implement `AppIntent` toggle action in `ios_app/ios/ShoppingWidget/ToggleItemIntent.swift` — on item tap: (1) reads and mutates `shopping_items_json` in the shared `UserDefaults` key, (2) calls `WidgetCenter.shared.reloadAllTimelines()` to refresh the widget display, (3) notifies Flutter via `home_widget` background callback to write the change to SQLite
 
 ### State Refresh on App Resume (Concurrent Modification Sync)

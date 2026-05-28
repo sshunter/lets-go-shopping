@@ -52,7 +52,8 @@ CREATE TABLE IF NOT EXISTS shopping_items (
 
 ### Shared Storage Mapping (home_widget)
 To expose this list to the Lockscreen Widgets:
-- **iOS App Group Container**: The app writes the current checklist as a serialized JSON string in a shared `UserDefaults` key (e.g. `group.com.letsgo.shopping.list`).
+
+- **iOS App Group Container**: The app writes the current checklist as a serialized JSON string in a shared `UserDefaults` key (e.g. `group.com.bluecollarcode.shopping.list`).
 - **Android SharedPreferences Pool**: The app writes the same serialized JSON string in SharedPreferences accessible by the AppWidgetProvider.
 
 **JSON Schema for Shared Pool**:
