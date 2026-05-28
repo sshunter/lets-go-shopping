@@ -1,15 +1,15 @@
 <!--
 SYNC IMPACT REPORT
-Version change: 1.0.0 -> 2.0.0
+Version change: 2.0.0 -> 2.1.0
 List of modified principles:
-- IV. OS-Level Tactical and Haptic Verification -> IV. CI-Based iOS Compilation Validation (Redefined to compile-only CI validation)
-Added sections:
 - None
+Added sections:
+- VI. Test-Driven Development (TDD) Discipline
 Removed sections:
 - None
 Templates requiring updates:
-- .specify/templates/plan-template.md: ✅ updated (aligned with redefined Principle IV)
-- .specify/templates/tasks-template.md: ✅ updated (paths and patterns remain consistent)
+- .specify/templates/plan-template.md: ✅ updated (added TDD Check gate)
+- .specify/templates/tasks-template.md: ✅ updated (already aligned)
 Follow-up TODOs:
 - None
 -->
@@ -33,6 +33,9 @@ To ensure long-term viability for the iOS platform without requiring active loca
 ### V. Type-Safe Platform Interoperability
 All platform channels and native boundaries (Android Kotlin / iOS Swift) must be defined using Pigeon for type-safe code generation, eliminating the overhead and fragility of manual key-value channel bindings. Hybrid Composition++ (HCPP) must be used as the Vulkan-based compositing pipeline for native views.
 
+### VI. Test-Driven Development (TDD) Discipline
+All business logic, state machines (BLoCs/Cubits), and data transformations within `/shared_core` must follow a strict Test-Driven Development workflow. Developers must write failing unit tests before writing the corresponding implementation code. Each development iteration must follow the Red-Green-Refactor lifecycle, ensuring high unit coverage and robust API boundary definitions before any UI layers are introduced.
+
 ## Platform UX Targets
 
 To ensure the app does not feel cross-platform or non-native, distinct presentation styles must be strictly adhered to:
@@ -52,4 +55,4 @@ To guard against compiler drift or CocoaPods dependency desynchronization withou
 - **Architectural Simplicity**: Any deviation or added complexity (e.g., additional platform packages, structural layers) must be explicitly justified and approved through a formal update to this Constitution.
 - **Runtime Guidance**: Use `/home/shunter/work/lets-go-shopping/docs/transitioning-to-flutter.md` as the primary reference for platform transitions and architectural logs.
 
-**Version**: 2.0.0 | **Ratified**: 2026-05-28 | **Last Amended**: 2026-05-28
+**Version**: 2.1.0 | **Ratified**: 2026-05-28 | **Last Amended**: 2026-05-28

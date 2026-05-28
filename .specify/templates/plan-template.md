@@ -44,6 +44,7 @@
 - [ ] **BLoC Separation Check**: Are all logic and states isolated from the UI using the pure-Dart BLoC/Cubit pattern?
 - [ ] **Headless Test Coverage**: Are there stream-based assertions for all events and states to be run headlessly via the CLI?
 - [ ] **iOS Compilation Check**: Is local Android emulator validation planned, and is a headless CI compilation (`flutter build ios --no-codesign`) verified for iOS dependency compatibility?
+- [ ] **TDD Check**: Are failing unit/behavior tests planned and written FIRST before writing any implementation code?
 - [ ] **Type-Safe Interop**: If native platform bridges are needed, are they defined using Pigeon?
 
 ## Project Structure
