@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "dart": {
+      "command": "dart",
+      "args": ["mcp-server"],
+      "directTools": true,
+      "lifecycle": "keep-alive"
+    }
+  }
+}
