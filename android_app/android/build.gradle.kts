@@ -14,6 +14,16 @@ rootProject.layout.buildDirectory.value(newBuildDir)
 subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
+
+    configurations.all {
+        resolutionStrategy {
+            eachDependency {
+                if (requested.group == "androidx.glance") {
+                    useVersion("1.1.1")
+                }
+            }
+        }
+    }
 }
 subprojects {
     project.evaluationDependsOn(":app")

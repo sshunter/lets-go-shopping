@@ -1,0 +1,34 @@
+name: iOS Compilation Gate
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          
+      - name: Install Dependencies (Shared Core)
+        run: |
+          cd shared_core
+          flutter pub get
+          
+      - name: Install Dependencies (iOS App)
+        run: |
+          cd ios_app
+          flutter pub get
+          
+      - name: Build iOS (No Code Sign)
+        run: |
+          cd ios_app
+          flutter build ios --no-codesign --debug

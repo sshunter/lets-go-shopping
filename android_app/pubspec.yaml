@@ -32,10 +32,14 @@ dependencies:
     sdk: flutter
   shared_core:
     path: ../shared_core
+  flutter_bloc: ^9.1.0
+  sqflite: ^2.3.3+3
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

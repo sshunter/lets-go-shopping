@@ -1,8 +1,9 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
+/// Unified business logic and storage for the Shopping List App.
 library;
 
-export 'src/shared_core_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/models/shopping_item.dart';
+export 'src/bloc/shopping_list_bloc.dart';
+export 'src/bloc/shopping_list_event.dart';
+export 'src/bloc/shopping_list_state.dart';
+export 'src/storage/shopping_item_repository.dart';
+export 'src/storage/shared_storage_sink.dart';
