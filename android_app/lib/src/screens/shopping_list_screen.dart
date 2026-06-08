@@ -12,57 +12,67 @@ class ShoppingListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shopping List'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: BlocListener<ShoppingListBloc, ShoppingListState>(
-              listener: (context, state) {
-                if (state is ShoppingListFailure) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.message)));
-                }
-              },
-              child: BlocBuilder<ShoppingListBloc, ShoppingListState>(
-                builder: (context, state) {
-                  if (state is ShoppingListLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is ShoppingListLoaded) {
-                    if (state.items.isEmpty) {
-                      return const Center(
-                        child: Text('Your shopping list is empty!'),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 896),
+          child: Column(
+            children: [
+              Expanded(
+                child: BlocListener<ShoppingListBloc, ShoppingListState>(
+                  listener: (context, state) {
+                    if (state is ShoppingListFailure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.message)),
                       );
                     }
-                    return ListView.builder(
-                      itemCount: state.items.length,
-                      itemBuilder: (context, index) {
-                        final item = state.items[index];
-                        return ShoppingItemTile(
-                          item: item,
-                          onDelete: () => context.read<ShoppingListBloc>().add(
-                            DeleteShoppingItem(item.id),
-                          ),
-                          onToggle: () => context.read<ShoppingListBloc>().add(
-                            ToggleItemCompletion(item.id),
-                          ),
+                  },
+                  child: BlocBuilder<ShoppingListBloc, ShoppingListState>(
+                    builder: (context, state) {
+                      if (state is ShoppingListLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
                         );
-                      },
-                    );
-                  } else if (state is ShoppingListFailure) {
-                    return Center(child: Text('Error: ${state.message}'));
-                  }
-                  return const SizedBox.shrink();
-                },
+                      } else if (state is ShoppingListLoaded) {
+                        if (state.items.isEmpty) {
+                          return const Center(
+                            child: Text('Your shopping list is empty!'),
+                          );
+                        }
+                        return ListView.builder(
+                          itemCount: state.items.length,
+                          itemBuilder: (context, index) {
+                            final item = state.items[index];
+                            return ShoppingItemTile(
+                              item: item,
+                              onDelete:
+                                  () => context.read<ShoppingListBloc>().add(
+                                    DeleteShoppingItem(item.id),
+                                  ),
+                              onToggle:
+                                  () => context.read<ShoppingListBloc>().add(
+                                    ToggleItemCompletion(item.id),
+                                  ),
+                            );
+                          },
+                        );
+                      } else if (state is ShoppingListFailure) {
+                        return Center(
+                          child: Text('Error: ${state.message}'),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ),
               ),
-            ),
+              AddItemBar(
+                onAdd: (name) =>
+                    context.read<ShoppingListBloc>().add(AddShoppingItem(name)),
+              ),
+            ],
           ),
-          AddItemBar(
-            onAdd: (name) =>
-                context.read<ShoppingListBloc>().add(AddShoppingItem(name)),
-          ),
-        ],
+        ),
       ),
     );
   }

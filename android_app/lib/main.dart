@@ -8,6 +8,7 @@ import 'package:path/path.dart';
 import 'package:shared_core/shared_core.dart';
 import 'package:sqflite/sqflite.dart';
 import 'src/screens/shopping_list_screen.dart';
+import 'src/theme/app_theme.dart';
 import 'src/widgets/home_widget_storage_sink.dart';
 
 @pragma('vm:entry-point')
@@ -102,10 +103,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shopping List',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light,
       home: BlocProvider.value(
         value: _bloc,
         child: const ShoppingListScreen(),

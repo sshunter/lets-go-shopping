@@ -25,6 +25,12 @@ import es.antonborri.home_widget.HomeWidgetGlanceState
 import es.antonborri.home_widget.HomeWidgetGlanceStateDefinition
 import org.json.JSONArray
 
+// PantryPalooza palette
+private val slateBlue = Color(0xFF3D5F8F)
+private val mossGreen = Color(0xFF556347)
+private val nearBlack = Color(0xFF151514)
+private val warmOffWhite = Color(0xFFF2F0E8)
+
 class ShoppingListWidget : GlanceAppWidget() {
 
     override val stateDefinition = HomeWidgetGlanceStateDefinition()
@@ -45,7 +51,7 @@ class ShoppingListWidget : GlanceAppWidget() {
         Column(
             modifier = GlanceModifier
                 .fillMaxSize()
-                .background(Color.White)
+                .background(warmOffWhite)
                 .padding(8.dp)
         ) {
             Text(
@@ -53,7 +59,7 @@ class ShoppingListWidget : GlanceAppWidget() {
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    color = ColorProvider(Color.Black)
+                    color = ColorProvider(slateBlue)
                 ),
                 modifier = GlanceModifier.padding(bottom = 8.dp)
             )
@@ -88,16 +94,17 @@ class ShoppingListWidget : GlanceAppWidget() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             val checkboxText = if (item.isCompleted) "☑" else "☐"
+            val checkboxColor = if (item.isCompleted) mossGreen else slateBlue
             Text(
                 text = checkboxText,
-                style = TextStyle(fontSize = 20.sp, color = ColorProvider(Color.Black)),
+                style = TextStyle(fontSize = 20.sp, color = ColorProvider(checkboxColor)),
                 modifier = GlanceModifier.padding(end = 8.dp)
             )
             Text(
                 text = item.name,
                 style = TextStyle(
                     fontSize = 16.sp,
-                    color = ColorProvider(if (item.isCompleted) Color.Gray else Color.Black)
+                    color = ColorProvider(if (item.isCompleted) Color.Gray else nearBlack)
                 )
             )
         }
