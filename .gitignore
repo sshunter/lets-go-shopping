@@ -19,5 +19,4 @@ Thumbs.db
 **/.pub/
 **/build/
 
-# Spec Kit
-.specify/feature.json
+.pi/
