@@ -40,8 +40,10 @@ jobs:
       - name: Cache CocoaPods
         uses: actions/cache@v4
         with:
-          path: ios_app/ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('ios_app/ios/Podfile.lock') }}
+          path: |
+            ios_app/ios/Pods
+            ios_app/ios/.symlinks
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
 
