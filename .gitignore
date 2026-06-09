@@ -19,4 +19,6 @@ Thumbs.db
 **/.pub/
 **/build/
 
+.scratch/
 .pi/
+skills-lock.json

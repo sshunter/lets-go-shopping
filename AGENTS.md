@@ -22,7 +22,7 @@ To prevent build regressions and dependency mismatches, the following commands M
 
 ### Issue tracker
 
-Issues are tracked as local markdown files under `.scratch/`. See `docs/agents/issue-tracker.md`.
+Issues are tracked as GitHub issues on `sshunter/lets-go-shopping`. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
