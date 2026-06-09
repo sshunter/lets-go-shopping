@@ -2,32 +2,49 @@ name: iOS Compilation Gate
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+# Automatically cancel older running builds on the same branch if a new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: macos-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
+      # Added 'cache: true' to natively cache Flutter SDK artifacts and pub packages
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
-          
+          channel: "stable"
+          cache: true
+          cache-key: "flutter-:channel:-:version:-${{ hashFiles('**/pubspec.yaml') }}"
+
       - name: Install Dependencies (Shared Core)
         run: |
           cd shared_core
           flutter pub get
-          
+
       - name: Install Dependencies (iOS App)
         run: |
           cd ios_app
           flutter pub get
-          
+
+      # Explicitly cache CocoaPods to speed up the Xcode build phase significantly
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: ios_app/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios_app/ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
       - name: Build iOS (No Code Sign)
         run: |
           cd ios_app
