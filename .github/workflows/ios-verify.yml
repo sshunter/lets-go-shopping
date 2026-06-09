@@ -3,8 +3,14 @@ name: iOS Compilation Gate
 on:
   push:
     branches: [main]
+    paths:
+      - "shared_core/**"
+      - "ios_app/**"
   pull_request:
     branches: [main]
+    paths:
+      - "shared_core/**"
+      - "ios_app/**"
 
 # Automatically cancel older running builds on the same branch if a new commit is pushed
 concurrency:
