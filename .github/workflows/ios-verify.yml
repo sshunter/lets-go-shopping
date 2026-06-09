@@ -11,6 +11,7 @@ on:
     paths:
       - "shared_core/**"
       - "ios_app/**"
+  workflow_dispatch: # Allows you to manually trigger this run from the GitHub UI
 
 # Automatically cancel older running builds on the same branch if a new commit is pushed
 concurrency:
