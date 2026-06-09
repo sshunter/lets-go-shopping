@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Added 'cache: true' to natively cache Flutter SDK artifacts and pub packages
+      # Natively cache Flutter SDK artifacts and pub packages
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -26,17 +26,19 @@ jobs:
           cache: true
           cache-key: "flutter-:channel:-:version:-${{ hashFiles('**/pubspec.yaml') }}"
 
+      # Install Shared Core dependencies first
       - name: Install Dependencies (Shared Core)
         run: |
           cd shared_core
           flutter pub get
 
+      # Install Main App dependencies
       - name: Install Dependencies (iOS App)
         run: |
           cd ios_app
           flutter pub get
 
-      # Explicitly cache CocoaPods to speed up the Xcode build phase significantly
+      # Cache CocoaPods and Symlinks (will be populated successfully by the release build step)
       - name: Cache CocoaPods
         uses: actions/cache@v4
         with:
@@ -47,7 +49,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Build iOS (No Code Sign)
+      # Build production AOT binaries without requiring Apple developer keys
+      - name: Build iOS Release (No Code Sign)
         run: |
           cd ios_app
-          flutter build ios --no-codesign --debug
+          flutter build ios --no-codesign --release
