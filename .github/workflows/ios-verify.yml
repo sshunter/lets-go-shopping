@@ -24,13 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Natively caches Flutter SDK artifacts and pub packages automatically
+      # Removed the custom cache-key line to let the action natively manage SDK and Pub caches independently
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
           cache: true
-          cache-key: "flutter-:channel:-:version:-${{ hashFiles('**/pubspec.yaml') }}"
 
       - name: Install Dependencies (Shared Core)
         run: |
