@@ -1,4 +1,4 @@
-package com.example.ios_app
+package com.bluecollarcode.shopping
 
 import io.flutter.embedding.android.FlutterActivity
 
