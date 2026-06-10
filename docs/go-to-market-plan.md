@@ -42,8 +42,11 @@ and hashing logic would be engineering theater for this app.
 Before paying the $25 developer registration fee, prepare everything that does
 not require a Play Console account.
 
-- [ ] **App icon** -- 512x512px, 32-bit PNG with alpha channel. Uploaded to Play
-      Console during app setup. (Separate from the mipmap launcher icon.)
+- [x] **App icon** -- 512x512px, 32-bit PNG with alpha channel. Uploaded to Play
+      Console during app setup.
+      <./go-to-market-assets/app-icons/Android/play_store_512.png>
+- [x] mipmap launcher icon.
+      <./go-to-market-assets/app-icons/Android/>
 - [ ] **Feature graphic** -- 1024x500px, PNG or JPEG.
 - [ ] **Phone screenshots** -- 2-8 screenshots showing the actual UI. No
       marketing-only graphics.
