@@ -21,4 +21,5 @@ Thumbs.db
 
 .scratch/
 .pi/
+.pi-subagents/
 skills-lock.json

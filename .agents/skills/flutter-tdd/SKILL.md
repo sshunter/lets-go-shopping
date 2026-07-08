@@ -1,11 +1,11 @@
 ---
 name: flutter-tdd
-description: Implement a Flutter feature from a PRD, spec, or resolved conversation using test-driven development. Orchestrates the global `tdd` skill's red-green-refactor discipline with Flutter's unit/widget/integration tiers and the project's MVVM + Repository architecture. Use when building a Flutter feature test-first, implementing a PRD or lighter spec in Flutter via TDD, or doing red-green-refactor in a Flutter app.
+description: Implement a Flutter feature from a PRD, spec, or resolved conversation using test-driven development. Orchestrates the global `tdd` and `code-review` skills' red-green-refactor discipline with Flutter's unit/widget/integration tiers and the project's MVVM + Repository architecture. Use when building a Flutter feature test-first, implementing a PRD or lighter spec in Flutter via TDD, or doing red-green-refactor in a Flutter app.
 ---
 
 # Flutter TDD Orchestrator
 
-A thin orchestrator that composes the global `tdd` skill (discipline) with the project's flutter skills (architecture + test mechanics) to implement a Flutter feature test-first from a PRD, a lighter spec, or just a resolved conversation.
+A thin orchestrator that composes the global `tdd` and `code-review` skills (discipline + close-out review) with the project's flutter skills (architecture + test mechanics) to implement a Flutter feature test-first from a PRD, a lighter spec, or just a resolved conversation.
 
 This skill restates the BINDING rules an agent must follow. The referenced skills are the source of truth for rationale and mechanics.
 
@@ -48,6 +48,7 @@ Per feature:
 3. **Integration verification last.** At feature completion, write a full `integration_test` covering the end-to-end user flow from the PRD / spec. This proves the layers compose; it is not the primary red-first loop.
 
 Red-first applies at all three tiers. The FORM of RED differs:
+
 - Logic tier: assertion fail.
 - Widget tier: compile fail (widget / behavior does not exist yet), then assertion fail.
 - Integration tier: flow fail (the flow is not wired end-to-end yet).
@@ -73,6 +74,15 @@ Red-first applies at all three tiers. The FORM of RED differs:
 ## Architecture
 
 Adopt the project's actual structure. Default in this project: `flutter-apply-architecture-best-practices` MVVM + Repository - `lib/ui/features/<feature>/{views,view_models}`, `lib/data/{services,repositories,models}`, optional `lib/domain/use_cases`. If the project uses a different structure, detect and follow it; the tier strategy and boundary map still apply (map "logic tier" to the project's logic unit, "Repository interface" to its data seam).
+
+## Close-out (the `implement` step's tail)
+
+After integration verification and the full `flutter test` suite are GREEN, this skill has completed the `implement` step of the lifecycle (`Grill -> Spec -> Tickets -> Implement -> Code Review`). Finish the implement step:
+
+1. **Hand off to `/code-review`** against the feature's starting point (the branch base / first commit of the feature). `code-review` runs the two-axis review (Standards + Spec, with the Fowler smell baseline) on the diff since that point. Treat its findings as the refactor pass — fix real smells before committing.
+2. **Commit** your work to the current branch once review is clean. Do not commit before `/code-review` returns.
+
+Refactoring during red-green (after each GREEN) is still in-scope here; `/code-review` is the final, diff-level smell pass that closes the feature out.
 
 ## Reference
 
