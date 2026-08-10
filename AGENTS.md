@@ -1,33 +1,26 @@
-# Development Standards
+# lets-go-shopping
 
-## Verification & Validation Gates
+Shared-core shopping list app with Flutter Android (Material) and iOS (Cupertino) frontends.
 
-To prevent build regressions and dependency mismatches, the following commands MUST be executed and pass successfully before any task involving these zones is considered "Done":
+## Development Standards
 
-### android_app/
+### Verification & Validation Gates
+
+Run and pass these before any task touching a zone is considered done:
+
+#### android_app/
 
 - `flutter test` (Unit and Widget tests)
 - `flutter build apk --debug` (Mandatory to verify Kotlin/Gradle/Glance dependency integrity)
 
-### ios_app/
+#### ios_app/
 
-- `flutter test`
-- That is all. We can't build ios_app on our linux dev machine.
+- `flutter test` (iOS build unavailable on the Linux dev machine.)
 
-### shared_core/
+#### shared_core/
 
 - `dart test` (Pure Dart logic/Stream tests)
 
 ## Agent skills
 
-### Issue tracker
-
-Issues are tracked as GitHub issues on `sshunter/lets-go-shopping`. See `docs/agents/issue-tracker.md`.
-
-### Triage labels
-
-The five canonical triage roles use their default names. See `docs/agents/triage-labels.md`.
-
-### Domain docs
-
-Single-context: one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+This repo follows the `repo-agent-conventions` skill (GitHub Issues, triage labels, domain docs) - see `docs/agents/` for detail.
