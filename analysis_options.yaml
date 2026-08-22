@@ -1,0 +1,17 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  exclude:
+    # Sub-packages have their own pubspec + analysis_options; the root
+    # tooling package only analyzes its own lib/test/tool code.
+    - shared_core/**
+    - android_app/**
+    - ios_app/**
+  language:
+    strict-casts: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    # The tooling CLI prints to stdout/stderr by design.
+    - avoid_print: false

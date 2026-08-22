@@ -19,6 +19,9 @@ Thumbs.db
 **/.pub/
 **/build/
 
+# lgs_tooling (private local dev tooling) resolves its own deps at pub get.
+/pubspec.lock
+
 .scratch/
 .pi/
 .pi-subagents/
