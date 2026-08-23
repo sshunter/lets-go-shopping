@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   shared_core:
     path: ../shared_core
+  shared_flutter:
+    path: ../shared_flutter
   flutter_bloc: ^9.1.0
   sqflite: ^2.3.3+3
   path: ^1.9.0

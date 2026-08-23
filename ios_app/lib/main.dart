@@ -1,9 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
 import 'package:shared_core/shared_core.dart';
+import 'package:shared_flutter/shared_flutter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'src/screens/shopping_list_page.dart';
 
@@ -19,40 +17,10 @@ void main() async {
   runApp(MyApp(repository: repository));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   final ShoppingItemRepository repository;
 
   const MyApp({super.key, required this.repository});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  late ShoppingListBloc _bloc;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _bloc = ShoppingListBloc(
-      repository: widget.repository,
-    )..add(LoadShoppingList());
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _bloc.close();
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _bloc.add(LoadShoppingList());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +30,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: BlocProvider.value(
-        value: _bloc,
+      home: ShoppingListScope(
+        repository: repository,
         child: const ShoppingListPage(),
       ),
     );
