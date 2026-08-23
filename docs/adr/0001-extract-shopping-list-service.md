@@ -1,7 +1,13 @@
 # ADR-0001: Extract ShoppingListService
 
 **Date:** 2025-06-05
-**Status:** Implemented
+**Status:** Rejected
+
+## Outcome
+
+This proposal was rejected before implementation. No `ShoppingListService` exists in tracked source history. The application retained `ShoppingListBloc` as the owner of the in-app mutation path, while the Android home widget callback keeps its isolate-local mutation and synchronization path.
+
+The current architecture is documented as it exists rather than introducing a service solely to make this stale decision record accurate. Related follow-up issues proceed independently of this rejected extraction.
 
 ## Problem
 
@@ -9,11 +15,11 @@ The home widget interactivity callback (`homeWidgetInteractivityCallback`) dupli
 
 Root cause: the callback is a `@pragma('vm:entry-point')` top-level function running outside the widget tree. It could not `context.read<ShoppingListBloc>()` or access any BLoC instance, so it was forced to duplicate the logic.
 
-## Decision
+## Proposed decision
 
-Extract a plain-Dart `ShoppingListService` in `shared_core` that owns the full mutation path (load, add, toggle, delete, sync to external sinks). Both the BLoC and the widget callback use this service. The BLoC becomes a UI-state adapter that delegates to the service and emits `Loading`/`Loaded`/`Failure` states.
+The proposal was to extract a plain-Dart `ShoppingListService` in `shared_core` that owned the full mutation path (load, add, toggle, delete, sync to external sinks). Both the BLoC and the widget callback would have used this service. The BLoC would have become a UI-state adapter that delegated to the service and emitted `Loading`/`Loaded`/`Failure` states.
 
-### Key design choices
+### Proposed design choices
 
 - **ShoppingListService** is a plain Dart class in `shared_core`. No Flutter dependency.
 - Injects `ShoppingItemRepository` (required) and `SharedStorageSink` (optional, nullable).
@@ -24,11 +30,11 @@ Extract a plain-Dart `ShoppingListService` in `shared_core` that owns the full m
 - **homeWidgetInteractivityCallback** creates its own `ShoppingListService` instance (different isolate, can't share) with a `HomeWidgetStorageSink`.
 - The `SharedStorageSink` abstract class was kept (not collapsed to a function type).
 
-### Out of scope (deferred to follow-up issues)
+### Related follow-up issues
 
-These candidates from the architecture review were explicitly deferred and later became GitHub issues:
+These candidates came from the same architecture review but proceed independently of the rejected service extraction:
 
 - **Widget lifecycle consolidation** -> Issue #11 (extract shared app shell)
-- **Validation in BLoC** -> Issue #12 (move validation into service/BLoC)
+- **Validation in BLoC** -> Issue #12 (centralize validation in the existing BLoC mutation path)
 - **SharedStorageSink collapse** -> Issue #13 (revisit abstraction)
 - **Dead file removal** -> Issue #14 (remove `shared_core_base.dart`)
