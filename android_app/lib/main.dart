@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:path/path.dart';
 import 'package:shared_core/shared_core.dart';
+import 'package:shared_flutter/shared_flutter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'src/screens/shopping_list_screen.dart';
 import 'src/theme/app_theme.dart';
@@ -63,49 +63,19 @@ void main() async {
   runApp(MyApp(repository: repository));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   final ShoppingItemRepository repository;
 
   const MyApp({super.key, required this.repository});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  late ShoppingListBloc _bloc;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _bloc = ShoppingListBloc(
-      repository: widget.repository,
-      storageSink: HomeWidgetStorageSink(),
-    )..add(LoadShoppingList());
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _bloc.close();
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _bloc.add(LoadShoppingList());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shopping List',
       theme: AppTheme.light,
-      home: BlocProvider.value(
-        value: _bloc,
+      home: ShoppingListScope(
+        repository: repository,
+        storageSink: HomeWidgetStorageSink(),
         child: const ShoppingListScreen(),
       ),
     );
