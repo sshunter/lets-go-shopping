@@ -16,10 +16,6 @@ _Avoid_: DAO, data source
 An abstract interface for synchronising the shopping list to external surfaces (home widget, etc.). Has one adapter (HomeWidgetStorageSink); kept as an interface against future iOS widget needs.
 _Avoid_: Callback, listener
 
-**ShoppingListService**:
-A plain-Dart module in shared_core that owns all mutations (load, add, toggle, delete) and synchronises changes to external storage sinks. Both the in-app BLoC and the home widget callback use this service. Mutations throw exceptions on failure (idiomatic Dart).
-_Avoid_: BLoC (for business logic - BLoC is a UI-state adapter only)
-
 **ShoppingListBloc**:
-A BLoC that maps UI events to ShoppingListService calls and emits UI-oriented states (Loading, Loaded, Failure). Owns no business logic - only UI-state transitions and event dispatch.
-_Avoid_: None
+The in-app coordinator for shopping-list mutations and UI-oriented loading, loaded, and failure states. The Android home widget callback uses a separate mutation path because it runs outside the widget tree.
+_Avoid_: ShoppingListService
