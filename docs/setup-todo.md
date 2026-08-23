@@ -71,3 +71,8 @@
 - [ ] Define initial Event/State/BLoC structure in shared_core
 - [ ] Wire a minimal example (e.g., Counter) end-to-end through android_app and ios_app
 - [ ] Verify hot-reload works for both targets
+
+## 11. Dependency Maintenance
+
+- [ ] Routine within-constraint upgrades + verification: follow the workflow in [docs/dependency-management.md](dependency-management.md)
+- [ ] Native toolchain bumps (Kotlin/AGP/Gradle, iOS deployment target, Flutter SDK, built-in Kotlin): follow the native-bump runbook in that doc
